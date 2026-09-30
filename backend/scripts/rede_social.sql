@@ -1,0 +1,27 @@
+CREATE TABLE usuarios (
+id SERIAL PRIMARY KEY,
+nome VARCHAR(20) NOT NULL UNIQUE,
+email VARCHAR(100) NOT NULL UNIQUE,
+senha INT NOT NULL
+);
+
+CREATE TABLE publicacoes (
+id SERIAL PRIMARY KEY,
+conteudo TEXT NOT NULL,
+id_usuario INT REFERENCES usuarios(id) NOT NULL,
+criado_em TIMESTAMP WITHOUT TIME ZONE DEFAULT LOCALTIMESTAMP
+);
+
+CREATE TABLE comentarios (
+id SERIAL PRIMARY KEY,
+id_usuario INT REFERENCES usuarios(id) NOT NULL,
+id_publicacao INT REFERENCES publicacoes(id),
+conteudo TEXT NOT NULL,
+criado_em TIMESTAMP WITHOUT TIME ZONE DEFAULT LOCALTIMESTAMP
+);
+
+CREATE TABLE curtidas (
+id SERIAL PRIMARY KEY,
+id_usuario INT REFERENCES usuarios(id) NOT NULL,
+id_publicacao INT REFERENCES publicacoes(id)
+);
